@@ -58,7 +58,7 @@ create a new database and import the fixture data, run:
 
 ```
 createdb silverorange_dev_test
-psql silverorange_dev_test < sql/accounts.sql
+psql silverorange_dev_test < sql/authors.sql
 psql silverorange_dev_test < sql/posts.sql
 ```
 
