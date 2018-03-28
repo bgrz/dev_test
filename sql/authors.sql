@@ -1,7 +1,7 @@
 begin;
 
 create table Authors (
-  id uuid not null,
+  id CHAR(36) not null,
 
   full_name varchar(255) not null,
   created_at timestamp not null,
