@@ -73,4 +73,38 @@ echo "\n\n----Task 2 Passed----\n\n";
 
 echo "\n\n----Task 3 Follows----\n\n";
 
+$result_data = '';
+
+$query = '
+    SELECT authors.full_name, posts.title 
+    FROM authors, posts 
+    WHERE authors.id=posts.author 
+    ORDER BY posts.created_at DESC';
+
+$stmt = $pdo->prepare($query);
+$stmt->execute();
+$data = $stmt->fetchAll();
+
+if ($data) {
+    foreach($data AS $index => $result) {
+$result_data .= '
+    <p>author: ' . $result['full_name'] . '</p>
+    <p>title: ' . $result['title'] .'</p>
+';
+    }
+
+       echo <<<EOT
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>silverorange - task 3 output</title>
+  </head>
+  <body>
+    $result_data
+  </body>
+</html>
+EOT;
+}
+
 echo "\n\n----Task 3 Passed----\n\n";
