@@ -1,4 +1,9 @@
 <?php
+/**
+ * silverorange developer test
+ * Bogdan - bgdnrz@gmail.com
+ * PDO database connection
+ */
 
 define('DB_DRIVER', 'mysql');
 define('DB_HOST', 'localhost');

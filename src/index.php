@@ -1,7 +1,10 @@
 <?php
-
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+/**
+ * silverorange developer test
+ * Bogdan - bgdnrz@gmail.com
+ *
+ * 3 tasks illustrating PHP and MySQL capabilities
+ */
 
 // yields $pdo database connection
 require 'connect.php';
@@ -10,15 +13,20 @@ require 'connect.php';
 echo "\n\n----Task 1 Follows----\n\n";
 
 $query = [
-    'exists' => 'SELECT COUNT(*) FROM posts WHERE id = :id LIMIT 1',
-    'insert' => 'INSERT INTO posts SET id = :id, title = :title, body = :body, created_at = :created_at, modified_at = :modified_at, author = :author',
+    'exists' => '
+    SELECT COUNT(*) 
+    FROM posts WHERE id = :id 
+    LIMIT 1',
+    'insert' => '
+    INSERT INTO posts 
+    SET id = :id, title = :title, body = :body, created_at = :created_at, modified_at = :modified_at, author = :author',
 ];
 
-foreach(glob("data/*.json") AS $filename) {
+foreach (glob("data/*.json") AS $filename) {
     $data = file_get_contents($filename);
 
     // decode data to 1) prepare for insertion to DB, 2) loosely determine if it's valid JSON
-    $result = json_decode($data, TRUE);
+    $result = json_decode($data, true);
 
     // loosely confirm and proceed if this is valid JSON by checking last decode error for presence of none
     if (json_last_error() === JSON_ERROR_NONE) {
@@ -69,7 +77,8 @@ EOT;
 
 echo "\n\n----Task 2 Passed----\n\n";
 
-// Render all available posts in reverse chronological order as an HTML document. Include the post title and author in the rendered document.
+// Render all available posts in reverse chronological order as an HTML document. 
+// Include the post title and author in the rendered document.
 
 echo "\n\n----Task 3 Follows----\n\n";
 
@@ -86,8 +95,8 @@ $stmt->execute();
 $data = $stmt->fetchAll();
 
 if ($data) {
-    foreach($data AS $index => $result) {
-$result_data .= '
+    foreach ($data AS $index => $result) {
+        $result_data .= '
     <p>author: ' . $result['full_name'] . '</p>
     <p>title: ' . $result['title'] .'</p>
 ';
