@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 // yields $pdo database connection
 require 'connect.php';
 
-// Create an importer that imports a list of post files (examples are provided in the data folder) into the database.
+// Import a list of post files (examples are provided in the data folder) into the database.
 echo "\n\n----Task 1 Follows----\n\n";
 
 $query = [
@@ -40,6 +40,32 @@ echo "\n\n----Task 1 Passed----\n\n";
 // Given a post id from the database, renders the post content (title, body, author) as an HTML document.
 
 echo "\n\n----Task 2 Follows----\n\n";
+
+$query = '
+    SELECT title, body, author 
+    FROM posts WHERE id = :id';
+
+$id = '2f1fe9c0-bdbf-4104-bee2-3c0ec514436f';
+$stmt = $pdo->prepare($query);
+$stmt->execute(['id' => $id]);
+$data = $stmt->fetch();
+
+if ($data) {
+    echo <<<EOT
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>silverorange - task 2 output</title>
+  </head>
+  <body>
+    <p>title: {$data['title']}</p>
+    <p>body: {$data['body']}</p>
+    <p>author: {$data['author']}</p>
+  </body>
+</html>
+EOT;
+}
 
 echo "\n\n----Task 2 Passed----\n\n";
 
